@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "879894640795",
+    "firebase_url": "https://car-security-system-8d7b1-default-rtdb.firebaseio.com",
+    "project_id": "car-security-system-8d7b1",
+    "storage_bucket": "car-security-system-8d7b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879894640795:android:7be665559cf8f8ea11ee3e",
+        "android_client_info": {
+          "package_name": "com.example.tracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879894640795-3c4rjvuctoult2nscdog7vlj2jqjmbp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfl6-mqzU3z2IQbLqe4242NzODaMO4jWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879894640795-3c4rjvuctoult2nscdog7vlj2jqjmbp1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
