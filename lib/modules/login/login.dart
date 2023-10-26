@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
               /*password*/ textField(
                 keyboardType: TextInputType.emailAddress,
                 controller: pass,
-                hinttext: 'Email or Phone number',
+                hinttext: 'Password',
                 isPassword: true,
                 suffixIcon: pass.text.isEmpty
                     ? Container(width: 0)
