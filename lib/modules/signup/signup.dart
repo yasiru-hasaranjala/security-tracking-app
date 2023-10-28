@@ -20,7 +20,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isPasswordVisible = true;
 
   var formKey = GlobalKey<FormState>();
-  String errorText = 'Can\'ot be empty';
+  String errorText = 'Can\'t be empty';
+  late String errorMessage;
 
   @override
   void initState() {
@@ -151,6 +152,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       if (kDebugMode) {
                         print(e);
                       }
+                      setState(() {
+                        errorMessage = e.toString();
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(errorMessage),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
                     }
                     setState(() {
                       showSpinner = false;
