@@ -15,19 +15,10 @@ class Map extends StatefulWidget {
 
 class MapState extends State<Map> {
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
-  final databaseReference = FirebaseDatabase.instance.ref('Location/Latitude');
   final ref = FirebaseDatabase.instance.ref();
   Set<Marker> markers = {};
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(6.927079, 79.861244),
-    zoom: 15.8746,
-  );
-
-  var marker = const Marker(
-    markerId: MarkerId('1'),
-    position: LatLng(6.927079, 79.861244),
-  );
+  Set<Marker> markersH = {};
 
   final _auth = FirebaseAuth.instance;
   late User loggedinUser;
@@ -75,6 +66,8 @@ class MapState extends State<Map> {
             // Add new marker with markerId.
             markers.add(Marker(markerId: const MarkerId("Location"), position: latLng));
 
+
+
             // If google map is already created then update camera position with animation
             // final GoogleMapController mapController = await _controller.future;
             // mapController.animateCamera(CameraUpdate.newCameraPosition(
@@ -99,34 +92,53 @@ class MapState extends State<Map> {
             );
           },
         ),
-        floatingActionButton: StreamBuilder(
-          stream: ref.child('door_rfid_pir_state').onValue,
-          builder: (context, snap) {
-            if (snap.hasError) {
-              return const Text('Something went wrong');
-            }
-            if (snap.connectionState == ConnectionState.waiting) {
-              return const Text("Loading");
-            }
-
-            String door = snap.data!.snapshot.child("door").value.toString();
-
-            return Padding(
-              padding: const EdgeInsets.only(right: 39.0),
+        floatingActionButton: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 25.0),
               child: FloatingActionButton.extended(
-                backgroundColor: Colors.amber,
+                heroTag: "btn1",
+                backgroundColor: Colors.brown,
                 onPressed: (){
-                    ref.child('door_rfid_pir_state').update(
-                      door=='0' ? {"door": 1} : {"door": 0}
-                    );
+                  Navigator.pushNamed(context, 'history_screen');
                 },
-                label: door=='0'
-                    ? const Text('Door Lock',)
-                    : const Text('Door Unlock'),
-                icon: const Icon(Icons.lock_clock),
+                label: const Text('History'),
+                icon: const Icon(Icons.edit_location),
               ),
-            );
-          }
+            ),
+            StreamBuilder(
+              stream: ref.child('door_rfid_pir_state').onValue,
+              builder: (context, snap) {
+                if (snap.hasError) {
+                  return const Text('Something went wrong');
+                }
+                if (snap.connectionState == ConnectionState.waiting) {
+                  return const Text("Loading");
+                }
+
+                String door = snap.data!.snapshot.child("door").value.toString();
+
+                return Padding(
+                  padding: const EdgeInsets.only(right: 40.0),
+                  child: FloatingActionButton.extended(
+                    heroTag: "btn2",
+                    backgroundColor: Colors.amber,
+                    onPressed: (){
+                        ref.child('door_rfid_pir_state').update(
+                          door=='0' ? {"door": 1} : {"door": 0}
+                        );
+                    },
+                    label: door=='0'
+                        ? const Text('Door Lock',)
+                        : const Text('Door Unlock'),
+                    icon: const Icon(Icons.lock_clock),
+                  ),
+                );
+              }
+            ),
+          ],
         ),
         appBar: AppBar(
           backgroundColor: Colors.amber,

@@ -1,7 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:tracking/modules/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tracking/modules/login/login.dart';
+import 'package:tracking/modules/map/history_map.dart';
 import 'package:tracking/modules/map/map.dart';
 import 'package:tracking/modules/signup/signup.dart';
 
@@ -15,6 +17,8 @@ void main() async {
           projectId:'car-security-system-8d7b1'
       )
   );
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print("FCMToken $fcmToken");
   runApp(const MyApp());
 }
 
@@ -33,7 +37,8 @@ class MyApp extends StatelessWidget {
         'welcome_screen': (context) => const HomeScreen(),
         'registration_screen': (context) => const SignUpScreen(),
         'login_screen': (context) => const LoginScreen(),
-        'home_screen': (context) => const Map()
+        'home_screen': (context) => const Map(),
+        'history_screen': (context) => const HistoryMap()
       },
     );
   }
