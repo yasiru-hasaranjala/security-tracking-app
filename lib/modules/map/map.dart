@@ -18,8 +18,6 @@ class MapState extends State<Map> {
   final ref = FirebaseDatabase.instance.ref();
   Set<Marker> markers = {};
 
-  Set<Marker> markersH = {};
-
   final _auth = FirebaseAuth.instance;
   late User loggedinUser;
   bool doorLock = false;

@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:tracking/modules/home/home.dart';
@@ -17,8 +18,11 @@ void main() async {
           projectId:'car-security-system-8d7b1'
       )
   );
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print("FCMToken $fcmToken");
+
+  FirebaseMessaging.instance.getToken().then((token) {
+    update(token!);
+  });
+
   runApp(const MyApp());
 }
 
@@ -42,4 +46,10 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+update(String token) {
+  print(token);
+  DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
+  databaseReference.child('fcm-token/${token}').set({"token": token});
 }
